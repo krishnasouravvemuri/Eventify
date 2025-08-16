@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | Register to Event{% endblock %}
+
+{% block header %}
+    <a href="{% url 'logout_user' %}" class="bg-red-600 p-3 font-semibold rounded hover:bg-red-800 transition-colors duration-300">Logout</a>
+{% endblock %}
+
+{% block eventify %}
+    <a href="{% url 'members_home' %}">EVENTIFY</a>
+{% endblock %}
+
+{% block body %}
+    <h1 class="text-xl font-semibold mb-2">Event Name: {{ event.name }}</h1>
+    <h1 class="text-xl font-medium mb-4">Event Host: {{ event.user.username }}</h1>
+
+    <form action="{% url 'event_register' event.id %}" method="POST" class="space-y-4" id="registration_form">
+        {% csrf_token %}
+        
+        <div>
+            <label for="num_reg" class=" text-xl block font-semibold mb-1">Number of Registrations:</label>
+            <input id="num_reg" class="border border-gray-300 rounded-sm px-4 py-2 w-32 focus:outline-none focus:ring-2 focus:ring-indigo-500" 
+                   name="no_of_registrations" type="number" min="1" max="5" placeholder="1-5">
+            <button type="button" class="bg-indigo-600 text-white rounded-lg ml-4 px-4 py-2 hover:bg-indigo-700 transition-colors duration-300" 
+                    id="submit_btn" onclick="generateFields()">Next</button>
+        </div>
+
+        <!-- Message div -->
+        <div id="msg_container" class="text-red-600 font-semibold opacity-0 transition-opacity duration-500"></div>
+
+        <!-- Dynamic member inputs -->
+        <div id="members_fields" class="space-y-2 mt-2"></div>
+
+        <button type="submit" id="final_submit" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors duration-300" 
+                style="display:none;">Submit Members</button>
+    </form>
+
+    <script>
+        // Function to show messages with fade-in/out
+        function showMessage(msg) {
+            const msgContainer = document.getElementById('msg_container');
+            msgContainer.innerText = msg;
+            msgContainer.classList.add('opacity-100');  // fade in
+
+            setTimeout(() => {
+                msgContainer.classList.remove('opacity-100'); // fade out
+                setTimeout(() => { msgContainer.innerText = ''; }, 500); // clear text after fade
+            }, 1500);
+        }
+
+        // Function to generate member name inputs
+        function generateFields() {
+            const container = document.getElementById('members_fields');
+            const numInput = document.getElementById('num_reg');
+            const finalSubmit = document.getElementById('final_submit');
+
+            const num = parseInt(numInput.value);
+            container.innerHTML = '';
+
+            if (isNaN(num) || num < 1) {
+                numInput.value = '';
+                finalSubmit.style.display = 'none';
+                showMessage("Please book at least 1 ticket.");
+                return;
+            }
+
+            if (num > 5) {
+                numInput.value = '';
+                finalSubmit.style.display = 'none';
+                showMessage("Can book 1 to 5 tickets only.");
+                return;
+            }
+
+            // Generate member name inputs
+            for (let i = 0; i < num; i++) {
+                const input = document.createElement('input');
+                input.name = 'member_name';
+                input.placeholder = `Member ${i+1} Name`;
+                input.required = true;
+                input.className = "border border-gray-300 rounded-sm px-4 py-2 mr-3 focus:outline-none focus:ring-2 focus:ring-indigo-500";
+                container.appendChild(input);
+            }
+
+            finalSubmit.style.display = 'inline-block';
+        }
+
+        // Handle enter key
+        document.getElementById('registration_form').addEventListener('keydown', function(event) {
+            if (event.key === "Enter") {
+                const finalSubmit = document.getElementById('final_submit');
+                if (finalSubmit.style.display === 'none') {
+                    event.preventDefault(); // prevent form submit
+                    generateFields();       // call next button click
+                }
+            }
+        });
+    </script>
+{% endblock %}

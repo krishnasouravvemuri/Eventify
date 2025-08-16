@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | Delete Events{% endblock  %}
+
+{% block header %}
+        <a href = "{%url 'logout_user' %}" class = " bg-red-600 p-3 font-semibold rounded hover:bg-red-800 transition-colors duration-300">Logout</a>
+{% endblock  %}
+
+{% block eventify %}<a href = "{% url 'hosts_home' %}">EVENTIFY</a>{% endblock  %}

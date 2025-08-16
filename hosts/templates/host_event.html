@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | Host Event{% endblock  %}
+
+{% block eventify %}<a href = "{% url 'hosts_home' %}">EVENTIFY</a>{% endblock  %}
+
+{% block body %}
+     <h1 class = "text-3xl text-center font-semibold mb-4">Create a Event! </h1>
+     <div class = "border p-6 rounded-md">
+        <form action="" method="POST" name = "host_event_form" enctype="multipart/form-data">
+        {% csrf_token %}
+        
+            <!-- Event Name -->
+            <label for="name">Event Name :</label><br>
+            <input type="text" id="name" name="name" required class = "border p-2 rounded-md w-md mt-2"><br><br>
+
+            <!-- Place -->
+            <label for="place">Place :</label><br>
+            <input type="text" id="place" name="place" required class = "border p-2 rounded-md w-md mt-2"><br><br>
+
+            <!-- Date -->
+            <label for="date">Date :</label><br>
+            <input type="date" id="date" name="date" required class="border p-2 rounded-md w-md mt-2"><br><br>
+
+
+            <!-- Time -->
+            <label for="time">Time : (24hr Format)</label><br>
+            <input type="time" id="time" name="time" required class = "border p-2 rounded-md w-md mt-2"><br><br>
+
+            <!-- Seats -->
+            <label for="seats">Seats :</label><br>
+            <input type="number" id="seats" name="seats" min="1" required class = "border p-2 rounded-md w-md mt-2"><br><br>
+
+            <!-- Banner -->
+            <label for="banner">Event Banner :</label><br>
+            <input type="file" id="banner" name="banner" accept="image/*" required class = "border p-2 rounded-md w-md mt-2"><br><br>
+
+            <div class = "flex justify-center">
+                <button type="submit" class = "cursor-pointer bg-indigo-700 px-4 py-2 mt-3.5 inline-block rounded hover:bg-indigo-900 transition-colors duration-300">Create Event</button>
+            </div>
+        </form>
+     </div>
+
+
+{% endblock  %}

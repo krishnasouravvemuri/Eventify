@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | Login{% endblock %}
+
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% endblock %}
+
+{% block body %}
+<span id = "show_message"></span>
+<div class="border max-w-xl mx-auto p-12 rounded-lg min-w-md w-md">
+    <h1 class="text-center mb-6 text-3xl font-semibold">SignIn to Eventify</h1>
+    <form method="POST" class="space-y-4" id="signupForm">
+        {% csrf_token %}
+
+        <div>
+            <label for="username" class="block text-sm font-medium">Username</label>
+            <input
+                type="text"
+                name="username"
+                id="username"
+                class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2 focus:ring focus:ring-indigo-300 focus:outline-none"
+            >
+        </div>
+
+        <div>
+            <label for="email" class="block text-sm font-medium">Email</label>
+            <input
+                type="email"
+                name="email"
+                id="email"
+                class="mt-1 block w-full  bg-slate-900 border-2 border-gray-300 rounded-md p-2 focus:ring focus:ring-indigo-300 focus:outline-none"
+            >
+        </div>
+
+        <div>
+            <label for="password1" class="block text-sm font-medium">Password</label>
+            <div style="position: relative;">
+                <input
+                    type="password"
+                    name="password1"
+                    id="password"
+                    class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2 pr-10 focus:ring focus:ring-indigo-300 focus:outline-none"
+                />
+                <i
+                    class="fa-solid fa-eye"
+                    id="passwordEye"
+                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none;"
+                    onclick="togglePasswordVisibility('password', 'passwordEye', 'passwordEyeSlash')"
+                ></i>
+                <i
+                    class="fa-solid fa-eye-slash"
+                    id="passwordEyeSlash"
+                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"
+                    onclick="togglePasswordVisibility('password', 'passwordEye', 'passwordEyeSlash')"
+                ></i>
+            </div>
+        </div>
+
+        <div>
+            <label for="password2" class="block text-sm font-medium mt-4">Confirm Password</label>
+            <div style="position: relative;">
+                <input
+                    type="password"
+                    name="password2"
+                    id="confirm-password"
+                    class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2 pr-10 focus:ring focus:ring-indigo-300 focus:outline-none"
+                />
+                <i
+                    class="fa-solid fa-eye"
+                    id="confirmPasswordEye"
+                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none;"
+                    onclick="togglePasswordVisibility('confirm-password', 'confirmPasswordEye', 'confirmPasswordEyeSlash')"
+                ></i>
+                <i
+                    class="fa-solid fa-eye-slash"
+                    id="confirmPasswordEyeSlash"
+                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"
+                    onclick="togglePasswordVisibility('confirm-password', 'confirmPasswordEye', 'confirmPasswordEyeSlash')"
+                ></i>
+            </div>
+        </div>
+
+        <div>
+            <label for="company_name" class="block text-sm font-medium">Company Name</label>
+            <input
+                type="text"
+                name="company_name"
+                id="company_name"
+                class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2 focus:ring focus:ring-indigo-300 focus:outline-none"
+                placeholder = "(optional)"
+            >
+        </div>
+
+        <select id="role" name="role" class="border-2 border-gray-300 mt-4 p-2 w-full rounded-md">
+            <option value="" class="bg-slate-700 text-white" selected disabled>-- Select Role --</option>
+            <option value="Host" class="bg-slate-700 text-white">Host</option>
+            <option value="Member" class="bg-slate-700 text-white">Member</option>
+        </select>
+
+        <input
+            type="submit"
+            value="SignUp"
+            class="w-full text-center mb-4 mt-4 bg-indigo-700 cursor-pointer px-4 py-2 rounded hover:bg-indigo-900 transition-colors duration-300"
+        >
+    </form>
+
+    <a class="text-indigo-400 font-semibold block text-center" href="{% url 'login_user' %}">Already User ? Login here</a>
+</div>
+
+<script>
+    function togglePasswordVisibility(inputId, eyeId, eyeSlashId) {
+        const input = document.getElementById(inputId);
+        const eye = document.getElementById(eyeId);
+        const eyeSlash = document.getElementById(eyeSlashId);
+
+        if (input.type === "password") {
+            input.type = "text";
+            eye.style.display = "inline";
+            eyeSlash.style.display = "none";
+        } else {
+            input.type = "password";
+            eye.style.display = "none";
+            eyeSlash.style.display = "inline";
+        }
+    }
+    function validatePasswords(event) {
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirm_password').value;
+
+        if (password !== confirmPassword) {
+            document.getElementById('show_message').innerText = "Passwords Mismatch !"
+            document.getElementById('signupForm').reset();
+            event.preventDefault();  
+        }
+    }
+
+    document.getElementById('signupForm').addEventListener('submit', validatePasswords);
+</script>
+
+{% endblock %}

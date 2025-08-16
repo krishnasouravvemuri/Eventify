@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | My Registrations{% endblock %}
+
+{% block header %}
+<a href = "{% url 'logout_user' %}" class = "bg-red-600 p-3 font-semibold rounded hover:bg-red-800 transition-colors duration-300">Logout</a>
+{% endblock %}
+
+{% block eventify %}<a href="{% url 'members_home' %}">EVENTIFY</a>{% endblock %}
+
+{% block body %}
+        <h1 class = "block text-3xl mb-4 text-center">Your Events </h1>
+        <a href = "{% url 'members_home' %}"><h1 class="text-center text-3xl mb-4 p-4 rounded inline-block  bg-slate-900 ">All Events</h1></a>
+        <a href = "{% url 'show_registrations' %}"><h1 class="text-center text-3xl mb-4 p-4 rounded inline-block bg-indigo-600">My Events</h1></a>
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% if grouped_sessions %}
+                {% for session in grouped_sessions %}
+                    <div class="text-white rounded-lg border shadow-lg overflow-hidden duration-300 transform transition-transform hover:scale-105 hover:shadow-2xl">
+                        {% if session.banner %}
+                            <img src="{{ session.banner.url }}" alt="{{ session.event.name }}" class="w-full h-40 object-cover transition-opacity duration-500 ease-in-out hover:opacity-90">
+                        {% endif %}
+                        <div class="p-4 w-100">
+                            <h2 class="text-xl font-semibold text-indigo-500">{{ session.event.name }}</h2>
+                            <p class=""><strong>Event Host :</strong> {{ session.event.user.username }}</p>
+                            <p class=""><strong>Place :</strong> {{ session.event.place }}</p>
+                            <p class=""><strong>Date :</strong> {{ session.event.date }}</p>
+                            <p class=""><strong>Time :</strong> {{ session.event.time }}</p>
+                            <hr class="my-2 border-gray-500">
+                            <h4><b>Members :</b></h4>
+                            {% for member in session.members %}
+                                <span>{{ member.member_name }}</span>
+                            {% endfor %}
+                            <p></p>
+                            <a href="{% url 'show_ticket' session.registration_code %}" class="bg-indigo-700 px-3 py-2 inline-block rounded hover:bg-indigo-900 mt-2 transition-colors duration-300">Get Ticket</a>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="text-center text-xl text-gray-300 col-span-full">You have no registrations yet.</p>
+            {% endif %}
+        </div>
+{% endblock %}

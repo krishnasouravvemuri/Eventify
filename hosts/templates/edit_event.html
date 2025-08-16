@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | Edit Events{% endblock  %}
+
+{% block header %}
+<a href="{% url 'logout_user' %}" class="bg-red-600 p-3 font-semibold rounded hover:bg-red-800 transition-colors duration-300">Logout</a>
+{% endblock %}
+
+{% block eventify %}
+<a href="{% url 'hosts_home' %}">EVENTIFY</a>
+{% endblock %}
+
+{% block body %}
+<h1 class = "text-3xl mb-4" >Edit Your Event Details</h1>
+<div class="border rounded h-auto min-w-md p-8">
+    <form id="editForm" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <ul>
+            <label for="new_name" class="mt-3 mb-1 block">New Name :</label>
+            <li><input name="new_name" placeholder="Old data: {{ event.name }}" class="mb-2 border rounded focus:border-green-900 p-4 w-full"></li>
+
+            <label for="new_place" class="mt-3 mb-1 block">New Place :</label>
+            <li><input type="text" name="new_place" placeholder="Old data: {{ event.place }}" class="mb-2 border rounded focus:border-green-900 p-4 w-full"></li>
+
+            <label for="new_date" class="mt-3 mb-1 block">New Date :</label>
+            <li><input type="text" name="new_date" placeholder="Old data: {{ event.date }}" class="mb-2 border rounded focus:border-green-900 p-4 w-full"></li>
+
+            <label for="new_time" class="mt-3 mb-1 block">New Time :</label>
+            <li><input type="time" name="new_time" placeholder="Old data: {{ event.time }}" class="mb-2 border rounded focus:border-green-900 p-4 w-full"></li>
+
+            <label for="new_seats" class="mt-3 mb-1 block">New Seats :</label>
+            <li><input type="number" name="new_seats" placeholder="Old data: {{ event.seats }}" class="mb-2 border rounded focus:border-green-900 p-4 w-full"></li>
+
+            <label for="new_banner" class="mt-3 mb-1 block">New Banner :</label>
+            <li><input type="file" accept="image/*" name="new_banner" class="mb-2 border rounded focus:border-green-900 p-4 w-full"></li>
+        </ul>
+
+        <div class="flex justify-evenly mt-4">
+            <!-- Edit Button -->
+            <button type="button" onclick="openModal('editModal')" class="bg-blue-700 px-4 py-2 rounded-md hover:bg-indigo-900 transition-colors duration-300">Edit Event</button>
+        </div>
+    </form>
+</div>
+
+<!-- Edit Confirmation Modal -->
+<!-- Edit Confirmation Modal -->
+<div id="editModal" class="fixed inset-0 hidden z-50 items-center justify-center">
+    <!-- Blurred backdrop -->
+    <div class="absolute inset-0 bg-white/20 backdrop-blur-xs"></div>
+
+    <!-- Modal box -->
+    <div class="relative bg-slate-900 rounded-2xl shadow-2xl w-96 p-6 text-center mx-4">
+        <h2 class="text-2xl font-bold mb-2 text-white">Confirm Edits?</h2>
+        <p class="text-white/80 mb-6 text-sm">Are you sure you want to save these changes?</p>
+        <div class="flex justify-center gap-4">
+            <button onclick="submitEdit()" class="bg-green-500 hover:bg-green-600 text-white px-6 py-2 rounded-xl font-semibold transition">Yes</button>
+            <button onclick="closeModal('editModal')" class="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-xl font-semibold transition">Cancel</button>
+        </div>
+    </div>
+</div>
+
+
+<script>
+function openModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+}
+function closeModal(id) {
+    const modal = document.getElementById(id);
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+}
+function submitEdit() {
+    document.getElementById('editForm').submit();
+}
+</script>
+{% endblock %}

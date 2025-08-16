@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | Member{% endblock  %}
+
+{% block header %}
+<a href = "{% url 'logout_user' %}" class = "bg-red-600 p-3 font-semibold rounded hover:bg-red-800 transition-colors duration-300">Logout</a>
+{% endblock %}
+
+{% block eventify %}<a href = "{% url 'members_home' %}">EVENTIFY</a>{% endblock  %}
+
+{% block body %}
+        <h1 class = "block text-3xl mb-4 text-center">Welcome {{ request.user.username }}</h1>
+        <a href = "{% url 'members_home' %}"><h1 id = "all_evets_button" class = "text-center text-3xl mb-4 p-4 rounded inline-block bg-indigo-600">All Events</h1></a>
+        <a href = "{% url 'show_registrations' %}"><h1 id = "my_evets_button" class = "text-center text-3xl mb-4 p-4 rounded inline-block bg-slate-900">My Events</h1></a>
+        <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for event in events %}
+                <div class="text-white rounded-lg border shadow-lg overflow-hidden duration-300 transform transition-transform hover:scale-105 hover:shadow-2xl">
+                        {% if event.banner %}
+                                <img src="{{ event.banner.url }}" alt="{{ event.name }}" class="w-full h-40 object-cover transition-opacity duration-500 ease-in-out hover:opacity-90">
+                        {% endif %}
+                        <div class="p-4 ">
+                                <h2 class="text-xl font-semibold text-indigo-500">{{ event.name }}</h2>
+                                <p class=""><strong>Event Host :</strong> {{ event.user.username }}</p>
+                                <p class=""><strong>Place :</strong> {{ event.place }}</p>
+                                <p class=""><strong>Date :</strong> {{ event.date }}</p>
+                                <p class=""><strong>Time :</strong> {{ event.time }}</p>
+                                {% if event.remaining_seats < 0 %}
+                                        <p class=""><strong>Seats Left :</strong> 0 / {{ event.seats }}</p>
+                                {% else %}
+                                        <p class=""><strong>Seats Left :</strong> {{ event.remaining_seats }} / {{ event.seats }}</p>
+                                {% endif %}                                
+                                {% if event.remaining_seats  > 0 %}
+                                        <a href = "{%url 'event_register' event.id %}" class = " bg-indigo-700 px-3 py-2 mt-2 inline-block rounded hover:bg-indigo-900 transition-colors duration-300">Register</a>
+                                {% else %}
+                                        <p class = " bg-gray-700 px-3 py-2 mt-2 inline-block rounded transition-colors duration-300">Registraions Complete</p>
+                                {% endif %}
+                        </div>
+                </div>
+                {% endfor %}
+        </div>
+
+{% endblock  %}

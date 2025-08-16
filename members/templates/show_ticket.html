@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | My Ticket{% endblock %}
+
+{% block header %}
+<a href="{% url 'logout_user' %}" class="bg-red-600 p-3 font-semibold rounded hover:bg-red-800 transition-colors duration-300">Logout</a>
+{% endblock %}
+
+{% block eventify %}
+<a href="{% url 'members_home' %}">EVENTIFY</a>
+{% endblock %}
+
+{% block body %}
+<h2 class=" block text-center text-2xl font-semibold mb-4">Your Ticket QR Code</h2>
+
+<img src="data:image/png;base64,{{ qr_code }}" alt="QR Code" class="mx-auto mb-4">
+
+<p class="text-center mb-5">Scan this QR code to see your ticket details.</p>
+<div class =  "flex justify-center">
+    <a href="data:image/png;base64,{{ qr_code }}" 
+    download="ticket_qr.png" 
+    class=" text-center bg-indigo-600 text-white p-3 rounded inline-block hover:bg-indigo-800 transition-colors duration-300">
+    Download QR Code
+    </a>
+</div>
+{% endblock %}

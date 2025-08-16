@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | Host Home{% endblock  %}
+
+{% block header %}
+        <a href = "{%url 'logout_user' %}" class = " bg-red-600 p-3 font-semibold rounded hover:bg-red-800 transition-colors duration-300">Logout</a>
+{% endblock  %}
+
+{% block eventify %}<a href = "{% url 'hosts_home' %}">EVENTIFY</a>{% endblock  %}
+
+{% block body %}
+
+<h1 class = "block mb-4 text-3xl text-center">Welcome to Eventify {{ user.username }}</h1>
+
+     <div class = "flex justify-evenly mt-5">
+        <a href = "{% url 'host_event' %}" class = " bg-indigo-700 px-4 py-2 mt-3.5 inline-block rounded hover:bg-indigo-900 transition-colors duration-300">Host Event</a>
+        <a href = "{% url 'view_event' %}" class = " bg-indigo-700 px-4 py-2 mt-3.5 inline-block rounded hover:bg-indigo-900 transition-colors duration-300">View & Modify Event</a>
+    </div>
+{% endblock  %}

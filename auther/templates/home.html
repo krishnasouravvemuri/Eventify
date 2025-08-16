@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+{% block title %}Eventify | Home{% endblock %}
+
+{% block header %}
+    <a href="{% url 'login_user' %}" class="bg-indigo-700 px-4 py-2 rounded hover:bg-indigo-900 transition-colors duration-300">Login/SignUp</a>
+{% endblock %}
+
+{% block body %}
+<!-- Hero Section -->
+<section class="bg-slate-900 min-h-screen flex flex-col justify-center items-center text-white px-4 pb-12">
+    <h1 class="text-5xl md:text-6xl font-extrabold text-center mb-4 drop-shadow-lg">
+        Welcome to Eventify!
+    </h1>
+    <h2 class="text-3xl md:text-4xl text-center mb-3 font-semibold tracking-wide drop-shadow-md">
+        Host Events, Join Events, and Explore Opportunities!
+    </h2>
+    <p class="text-lg md:text-xl text-center mb-1 max-w-2xl drop-shadow-sm">
+        Discover exciting events happening around you.
+    </p>
+    <p class="text-lg md:text-xl text-center mb-1 max-w-2xl drop-shadow-sm">
+        Connect with friends and meet new people at your favorite events.
+    </p>
+    <p class="text-lg md:text-xl text-center mb-4 max-w-2xl drop-shadow-sm">
+        Plan, register, and enjoy - all in one place!
+    </p>
+    <a href="{% url 'login_user' %}" class="bg-indigo-700 text-white font-bold px-6 py-2 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-transform duration-300">
+        Get Started
+    </a>
+</section>
+
+<!-- Events Section -->
+<section class="px-4 pb-16 bg-slate-900 text-white -mt-12">
+    <h1 class="text-4xl inline-block mb-6">Our Events</h1>
+    <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {% for event in events %}
+        <div class="rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-b from-slate-800 to-slate-900 border border-gray-700">
+            {% if event.banner %}
+            <img src="{{ event.banner.url }}" alt="{{ event.name }}" class="w-full h-40 object-cover transition-opacity duration-500 ease-in-out hover:opacity-90">
+            {% endif %}
+            <div class="p-4">
+                <h2 class="text-xl font-semibold text-indigo-400 mb-1">{{ event.name }}</h2>
+                <p class="text-sm"><strong>Host :</strong> {{ event.user.username }}</p>
+                <p class="text-sm"><strong>Place :</strong> {{ event.place }}</p>
+                <p class="text-sm"><strong>Date :</strong> {{ event.date }}</p>
+                <p class="text-sm"><strong>Time :</strong> {{ event.time }}</p>
+                <p class="text-sm"><strong>Seats Left :</strong> {{ event.remaining_seats }} / {{ event.seats }}</p>
+                {% if event.remaining_seats > 0 %}
+                <a href="{% url 'login_user' %}" class="bg-indigo-600 px-3 py-2 mt-2 inline-block rounded hover:bg-indigo-800 transition-colors duration-300 text-sm font-medium">
+                    Register
+                </a>
+                {% else %}
+                <p class="bg-gray-700 px-3 py-2 mt-2 inline-block rounded text-gray-300 text-sm font-medium">
+                    Registrations Full
+                </p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

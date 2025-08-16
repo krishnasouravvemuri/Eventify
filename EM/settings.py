@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-ap7+x8e(e(5wk4al(twln@o1mt#6tv&mgtxd6b%1ypwd19o+%0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['Eventify.23sou.xyz', '23sou.xyz' , '43.204.147.55']
+ALLOWED_HOSTS = ['Eventify.23sou.xyz', 'https://eventify-1-wfut.onrender.com']
 
 
 

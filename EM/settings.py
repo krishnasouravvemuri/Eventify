@@ -97,10 +97,11 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': 'divrmsha0',
-    'API_KEY': '561111286648518',
-    'API_SECRET': '1M-6ByH1t4Yjt-prP8B_1ZAXHSo',
+    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
+    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
+    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
 }
+
 
 # Tailwind
 TAILWIND_APP_NAME = 'theme'
@@ -109,3 +110,4 @@ NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+

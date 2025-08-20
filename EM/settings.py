@@ -1,5 +1,6 @@
 """
 Django settings for EM project.
+This is the latest update
 """
 
 import os

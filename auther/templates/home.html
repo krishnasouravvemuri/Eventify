@@ -34,11 +34,11 @@
     <h1 class="text-4xl inline-block mb-6">Our Events</h1>
     <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {% for event in events %}
-        <div class="rounded-lg overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-b from-slate-800 to-slate-900 border border-gray-700">
+        <div class="rounded-lg w-full overflow-hidden shadow-lg transform transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-gradient-to-b from-slate-800 to-slate-900 border border-gray-700">
             {% if event.banner %}
-            <img src="{{ event.banner.url }}" alt="{{ event.name }}" class="w-full h-40 object-cover transition-opacity duration-500 ease-in-out hover:opacity-90">
+            <img src="{{ event.banner.url }}" alt="{{ event.name }}" class="w-100 h-40 object-cover transition-opacity duration-500 ease-in-out hover:opacity-90">
             {% endif %}
-            <div class="p-4">
+            <div class="p-4 w-100">
                 <h2 class="text-xl font-semibold text-indigo-400 mb-1">{{ event.name }}</h2>
                 <p class="text-sm"><strong>Host :</strong> {{ event.user.username }}</p>
                 <p class="text-sm"><strong>Place :</strong> {{ event.place }}</p>

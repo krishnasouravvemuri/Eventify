@@ -2,16 +2,18 @@
 
 {% block title %}Eventify | Login{% endblock  %}
 
-{% block body %}
+{% block header %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+{% endblock %}
 
+{% block body %}
 <div class="border-[1px] max-w-lg mx-auto p-12 w-md rounded-lg shadow-md">
     <h1 class="text-center mb-6 text-3xl font-semibold">Login to Eventify</h1>
     <form method="POST" class="space-y-4">
-
         {% csrf_token %}
 
         <div>
-            <label for="username" class="block text-sm font-medium ">Username</label>
+            <label for="username" class="block text-sm font-medium">Username</label>
             <input 
                 type="text" 
                 name="username" 
@@ -21,19 +23,34 @@
         </div>
 
         <div>
-            <label for="password" class="block text-sm font-medium ">Password</label>
-            <input 
-                type="password" 
-                name="password" 
-                id="password" 
-                class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2 focus:ring focus:ring-indigo-300 focus:outline-none"
-            >
+            <label for="password" class="block text-sm font-medium">Password</label>
+            <div style="position: relative;">
+                <input 
+                    type="password" 
+                    name="password" 
+                    id="password" 
+                    class="mt-1 block w-full border-2 border-gray-300 rounded-md p-2 pr-10 focus:ring focus:ring-indigo-300 focus:outline-none"
+                />
+                <!-- Eye Icons -->
+                <i 
+                    class="fa-solid fa-eye"
+                    id="passwordEye"
+                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; display: none;"
+                    onclick="togglePasswordVisibility('password', 'passwordEye', 'passwordEyeSlash')"
+                ></i>
+                <i 
+                    class="fa-solid fa-eye-slash"
+                    id="passwordEyeSlash"
+                    style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer;"
+                    onclick="togglePasswordVisibility('password', 'passwordEye', 'passwordEyeSlash')"
+                ></i>
+            </div>
         </div>
 
         <select id="role" name="role" class="border-2 border-gray-300 mt-4 p-2 w-full rounded-md">
-            <option value="" class = "bg-slate-700 text-white" selected disabled>-- Select Role --</option>
-            <option value="Host" class = "bg-slate-700 text-white">Host</option>
-            <option value="Member" class = "bg-slate-700 text-white">Member</option>
+            <option value="" class="bg-slate-700 text-white" selected disabled>-- Select Role --</option>
+            <option value="Host" class="bg-slate-700 text-white">Host</option>
+            <option value="Member" class="bg-slate-700 text-white">Member</option>
         </select>
 
         <input 
@@ -42,8 +59,25 @@
             class="w-full text-center mb-4 mt-4 bg-indigo-700 cursor-pointer px-4 py-2 rounded hover:bg-indigo-900 transition-colors duration-300">
     </form>
 
-    <a class = "text-indigo-400 font-semibold block text-center" href = "{% url 'signup_user' %}">New? Register Here</a>
+    <a class="text-indigo-400 font-semibold block text-center" href="{% url 'signup_user' %}">New? Register Here</a>
 </div>
 
+<script>
+function togglePasswordVisibility(inputId, eyeId, eyeSlashId) {
+    const input = document.getElementById(inputId);
+    const eye = document.getElementById(eyeId);
+    const eyeSlash = document.getElementById(eyeSlashId);
+
+    if (input.type === "password") {
+        input.type = "text";
+        eye.style.display = "inline";
+        eyeSlash.style.display = "none";
+    } else {
+        input.type = "password";
+        eye.style.display = "none";
+        eyeSlash.style.display = "inline";
+    }
+}
+</script>
 
 {% endblock %}

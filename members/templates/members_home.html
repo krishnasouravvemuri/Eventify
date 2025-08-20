@@ -14,11 +14,11 @@
         <a href = "{% url 'show_registrations' %}"><h1 id = "my_evets_button" class = "text-center text-3xl mb-4 p-4 rounded inline-block bg-slate-900">My Events</h1></a>
         <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {% for event in events %}
-                <div class="text-white rounded-lg border shadow-lg overflow-hidden duration-300 transform transition-transform hover:scale-105 hover:shadow-2xl">
+                <div class="text-white w-full rounded-lg border shadow-lg overflow-hidden duration-300 transform transition-transform hover:scale-105 hover:shadow-2xl">
                         {% if event.banner %}
                                 <img src="{{ event.banner.url }}" alt="{{ event.name }}" class="w-full h-40 object-cover transition-opacity duration-500 ease-in-out hover:opacity-90">
                         {% endif %}
-                        <div class="p-4 ">
+                        <div class="p-4 w-100">
                                 <h2 class="text-xl font-semibold text-indigo-500">{{ event.name }}</h2>
                                 <p class=""><strong>Event Host :</strong> {{ event.user.username }}</p>
                                 <p class=""><strong>Place :</strong> {{ event.place }}</p>

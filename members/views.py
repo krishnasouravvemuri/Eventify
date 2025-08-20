@@ -79,13 +79,13 @@ def show_ticket(request, registration_code):
     # Fetch all members in this registration session
     tickets = MemberDetails.objects.filter(user=request.user, registration_code=registration_code)
     event = tickets.first().event
-
     member_names = [t.member_name for t in tickets]
     num_members = len(member_names)
 
-    # Prepare QR code data
-    qr_data = f"Event: {event.name}\nDate: {event.date} {event.time}\nRegistered Members ({num_members}):\n"
-    qr_data += "\n".join(member_names)
+    # Instead of embedding raw details, encode a link to the ticket page
+    ticket_url = request.build_absolute_uri(
+        reverse('ticket_detail', args=[tickets.first().id])
+    )
 
     qr = qrcode.QRCode(
         version=1,
@@ -93,7 +93,7 @@ def show_ticket(request, registration_code):
         box_size=4,
         border=2,
     )
-    qr.add_data(qr_data)
+    qr.add_data(ticket_url)
     qr.make(fit=True)
     img = qr.make_image(fill_color="black", back_color="white")
 
@@ -105,5 +105,7 @@ def show_ticket(request, registration_code):
         'qr_code': img_str,
         'event': event,
         'member_names': member_names,
-        'num_members': num_members
+        'num_members': num_members,
+        "code": registration_code,
+        "ticket_url": ticket_url,
     })

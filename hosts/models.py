@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from cloudinary.models import CloudinaryField
 
 class EventDetails(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="events")
@@ -9,4 +8,4 @@ class EventDetails(models.Model):
     date = models.DateField(blank=False, null=False)
     time = models.TimeField(blank=False, null=False)
     seats = models.IntegerField(blank=False, null=False)
-    banner = CloudinaryField('banner', blank=False, null=False)
+    banner = models.ImageField(upload_to='event_banners/', blank=False, null=False)

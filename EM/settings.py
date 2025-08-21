@@ -15,8 +15,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Security
 # ---------------------------
 SECRET_KEY = 'django-insecure-ap7+x8e(e(5wk4al(twln@o1mt#6tv&mgtxd6b%1ypwd19o+%0'
-DEBUG = True
-ALLOWED_HOSTS = []
+DEBUG = False
+ALLOWED_HOSTS = ['eventify.23sou.xyz' , '65.2.141.81']
 
 # ---------------------------
 # Applications

@@ -127,7 +127,7 @@ AWS_S3_REGION_NAME = 'ap-south-1'
 AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL = None
 AWS_S3_VERIFY = True
-
+AWS_QUERYSTRING_AUTH = False
 # ---------------------------
 # Django 5.x STORAGES system
 # ---------------------------

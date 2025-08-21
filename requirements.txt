@@ -14,5 +14,5 @@ sqlparse==0.5.3
 tzdata==2025.2
 urllib3==2.5.0
 gunicorn==23.0.0
-boto3==1.31.3
-django-storages==1.18.1
+boto3
+django-storages

@@ -106,7 +106,7 @@ USE_TZ = True
 # ---------------------------
 
 MEDIA_URL = "https://sou-django-bucket.s3.ap-south-1.amazonaws.com/"
-STATIC_URL = "https://sou-django-bucket.s3.ap-south-1.amazonaws.com/static/"
+STATIC_URL = "https://sou-django-bucket.s3.ap-south-1.amazonaws.com/css/dist/"
 
 # Tailwind
 TAILWIND_APP_NAME = 'theme'
